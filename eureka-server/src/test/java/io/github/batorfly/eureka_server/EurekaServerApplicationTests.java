@@ -1,10 +1,10 @@
-package io.github.batorfly.euereka_server;
+package io.github.batorfly.eureka_server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EuerekaServerApplicationTests {
+class EurekaServerApplicationTests {
 
     @Test
     void contextLoads() {

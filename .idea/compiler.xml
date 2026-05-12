@@ -7,12 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
-        <module name="euereka-server" />
         <module name="task-tracker-backend" />
         <module name="task-tracker-email-sender" />
         <module name="task-tracker-sheduler" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="euereka-server" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

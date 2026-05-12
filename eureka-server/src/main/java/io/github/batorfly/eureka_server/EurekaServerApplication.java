@@ -1,13 +1,13 @@
-package io.github.batorfly.euereka_server;
+package io.github.batorfly.eureka_server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EuerekaServerApplication {
+public class EurekaServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EuerekaServerApplication.class, args);
+        SpringApplication.run(EurekaServerApplication.class, args);
     }
 
 }
