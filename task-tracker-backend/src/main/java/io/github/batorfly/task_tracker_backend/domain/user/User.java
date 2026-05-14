@@ -1,7 +1,8 @@
 package io.github.batorfly.task_tracker_backend.domain.user;
 
 import io.github.batorfly.task_tracker_backend.domain.task.Task;
-import org.jspecify.annotations.Nullable;
+import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,8 +11,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Entity
+@Table(name = "users")
+@Builder @Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
+@EqualsAndHashCode(of = {"id", "email"})
 public class User implements UserDetails {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private Long id;
 
     private String firstName;
