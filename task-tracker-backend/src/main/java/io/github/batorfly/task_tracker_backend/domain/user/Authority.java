@@ -1,8 +1,10 @@
 package io.github.batorfly.task_tracker_backend.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.jspecify.annotations.Nullable;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
@@ -17,17 +19,29 @@ public class Authority implements GrantedAuthority {
     @Column(name = "role_id")
     private Long id;
 
+    // user нужен редко, SELECT для экономии ресурсов - предусмотреть проблему N+1
+    @JsonIgnore
+    @Fetch(FetchMode.SELECT)
+    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
     private Roles role;
 
     @Override
-    public @Nullable String getAuthority() {
+    public String getAuthority() {
         return this.role.name();
     }
 
     public Authority(Roles role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "role = '" + this.role + "'";
     }
 
     public enum Roles {
