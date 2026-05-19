@@ -27,3 +27,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
         time_zone: UTC
+
+  jackson:
+    date-format: "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    time-zone: "UTC"
