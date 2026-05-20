@@ -8,7 +8,10 @@ import java.util.Optional;
 
 public interface UserService {
     void saveUser(User user);
+
     Optional<User> findByEmail(String email);
+
     List<UserWithTasksDto> getAllUsersWithTasks();
+
     Optional<User> findById(Long userId);
 }
