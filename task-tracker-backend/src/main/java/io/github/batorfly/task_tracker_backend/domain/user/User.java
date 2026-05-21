@@ -53,6 +53,18 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Authority> authorities = new HashSet<>();
 
+    @PrePersist
+    protected void onCreate() {
+        Instant now = Instant.now();
+        createdTime = now;
+        updatedTime = now;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedTime = Instant.now();
+    }
+
     public void addAuthority(Authority authority) {
         authorities.add(authority);
         authority.setUser(this);
