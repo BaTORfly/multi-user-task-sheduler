@@ -37,7 +37,7 @@ public class Task {
     @Column(name = "created_time", nullable = false, updatable = false)
     private Instant createdTime;
 
-    @Column(name = "updatedTime", nullable = false)
+    @Column(name = "updated_time", nullable = false)
     private Instant updatedTime;
 
     @Column(name = "completion_time")

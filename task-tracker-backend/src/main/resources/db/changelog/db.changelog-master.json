@@ -1,0 +1,25 @@
+{
+  "databaseChangeLog": [
+    {
+      "comment": "Initial tables creation",
+      "include": {
+        "relativeToChangelogFile": "true",
+        "file": "changes/001-create-tables.sql"
+      }
+    },
+    {
+      "comment": "Foreign keys setup",
+      "include": {
+        "relativeToChangelogFile": "true",
+        "file": "changes/002-add-constraints.sql"
+      }
+    },
+    {
+      "comment": "Index creation",
+      "include": {
+        "relativeToChangelogFile": "true",
+        "file": "changes/003-add-indexes.sql"
+      }
+    }
+  ]
+}

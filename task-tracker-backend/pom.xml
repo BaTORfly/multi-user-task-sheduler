@@ -20,6 +20,7 @@
         <java.version>17</java.version>
         <postgresql.version>42.7.11</postgresql.version>
         <mapstruct.version>1.6.3</mapstruct.version>
+        <liquibase.version>4.29.1</liquibase.version>
     </properties>
 
     <dependencies>
@@ -29,7 +30,7 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- database -->
+        <!-- database and migration -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -42,7 +43,10 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- should add liquibase later -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-liquibase</artifactId>
+        </dependency>
 
         <!-- security -->
         <dependency>

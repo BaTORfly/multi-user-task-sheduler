@@ -44,13 +44,19 @@ public class User implements UserDetails {
     @Column(name = "updated_time", nullable = false)
     private Instant updatedTime;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(
+            mappedBy = "user",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private Set<Task> tasks = new HashSet<>();
 
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
     @Builder.Default
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(
+            mappedBy = "user",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private Set<Authority> authorities = new HashSet<>();
 
     @PrePersist
