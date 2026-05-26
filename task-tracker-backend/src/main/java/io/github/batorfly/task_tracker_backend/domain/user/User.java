@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "users")
 @Builder @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-@EqualsAndHashCode(of = {"id", "email"})
+@EqualsAndHashCode(of = "id")
 public class User implements UserDetails {
 
     @Id
