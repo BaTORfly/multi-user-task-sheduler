@@ -77,15 +77,14 @@ public class User implements UserDetails {
         authority.setUser(this);
     }
 
-//    public void addTask(Task task) {
+    //    public void addTask(Task task) {
 //        tasks.add(task);
 //        task.setUser(this);
-//
-
+//}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new HashSet<>(this.authorities);
+        return this.authorities;
     }
 
     @Override
@@ -106,5 +105,15 @@ public class User implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", enabled=" + enabled +
+                ", authorities=" + authorities +
+                '}';
     }
 }
