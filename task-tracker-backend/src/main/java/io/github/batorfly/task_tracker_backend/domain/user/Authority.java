@@ -39,8 +39,4 @@ public class Authority implements GrantedAuthority {
     public String toString() {
         return "role = '" + this.role + "'";
     }
-
-    public enum Roles {
-        USER, ADMIN
-    }
 }
