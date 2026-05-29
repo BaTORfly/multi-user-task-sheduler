@@ -29,7 +29,6 @@ spring:
 
 jwt:
   access:
-    lifetime:
-
+    lifetime: 1
   refresh:
-    lifetime:
+    lifetime: 30
