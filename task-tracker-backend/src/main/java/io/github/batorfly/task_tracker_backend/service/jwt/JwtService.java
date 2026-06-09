@@ -6,9 +6,9 @@ import java.util.Date;
 import java.util.Optional;
 
 public interface JwtService {
-    String generateToken(User user);
-    String generateRefreshToken(User user);
-    Optional<String> getSubjectFromToken(String token);
-    Date getExpirationDateFromToken(String token);
+    String generateAccessToken(final User user);
+    String generateRefreshToken(final User user);
+    Optional<String> getSubjectFromToken(final String token);
+    Date getExpirationDateFromToken(final String token);
     String verifyToken(String token);
 }
