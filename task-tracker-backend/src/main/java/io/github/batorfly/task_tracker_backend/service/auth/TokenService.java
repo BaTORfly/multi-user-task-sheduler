@@ -27,7 +27,7 @@ public class TokenService {
         return new TokenPair(accessToken, refreshToken);
     }
 
-    public void createRefreshToken(HttpServletResponse response, String refreshToken) {
+    public void createRefreshTokenCookie(HttpServletResponse response, String refreshToken) {
         Cookie cookie = new Cookie("refreshToken", refreshToken);
 
         Date expiration = jwtService.getExpirationDateFromToken(refreshToken);
