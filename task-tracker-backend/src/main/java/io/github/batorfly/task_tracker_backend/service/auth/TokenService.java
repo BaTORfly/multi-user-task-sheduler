@@ -30,7 +30,7 @@ public class TokenService {
     public void createRefreshToken(HttpServletResponse response, String refreshToken) {
         Cookie cookie = new Cookie("refreshToken", refreshToken);
 
-        Date expiration = jwtService.getExpirationFromToken(refreshToken);
+        Date expiration = jwtService.getExpirationDateFromToken(refreshToken);
 
         long maxAgeSeconds =
                 (expiration.getTime() - System.currentTimeMillis()) / 1000;
