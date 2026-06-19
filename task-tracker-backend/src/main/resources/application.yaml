@@ -1,12 +1,11 @@
-spring:
-
+ spring:
   application:
     name: task-tracker-backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/task_tracker_backend?currentSchema=public
-    username: postgres
-    password: kola2010
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   liquibase:
@@ -32,7 +31,7 @@ spring:
 
 jwt:
   access:
-    lifetime: 3600
+    lifetime: ${JWT_ACCESS_LIFETIME} # seconds
   refresh:
-    lifetime: 86400
+    lifetime: ${JWT_REFRESH_LIFETIME} # seconds
   secret: aGZiYmtiYWllYmNpZWFpZWJsZWNldWNlY2xhZWNhaWJlbGNhZWN3Q0VCV0VXSUM=
