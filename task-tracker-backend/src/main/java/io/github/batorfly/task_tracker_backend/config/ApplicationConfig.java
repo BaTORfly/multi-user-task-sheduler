@@ -1,7 +1,6 @@
 package io.github.batorfly.task_tracker_backend.config;
 
 import io.github.batorfly.task_tracker_backend.service.user.UserService;
-import io.jsonwebtoken.security.Password;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

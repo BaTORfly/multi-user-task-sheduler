@@ -12,6 +12,9 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.json
     enabled: true
+    parameters:
+      scheduler.email: ${SCHEDULER_EMAIL}
+      scheduler.hashed.password: ${SCHEDULER_HASHED_PASSWORD}
 
   jpa:
     hibernate:

@@ -20,6 +20,13 @@
         "relativeToChangelogFile": "true",
         "file": "changes/003-add-indexes.sql"
       }
+    },
+    {
+      "comment": "Initial admin insertion",
+      "include": {
+        "relativeToChangelogFile": "true",
+        "file": "changes/004-insert-admin.sql"
+      }
     }
   ]
 }
