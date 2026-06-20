@@ -30,18 +30,11 @@ public class JwtFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-
-        String path = request.getRequestURI();
-        log.debug("Processing request for path : {}", path);
-
-        if (path.startsWith("/api/v1/auth")){
-            log.debug("Skipping request with path : {}", path);
-            filterChain.doFilter(request, response);
-        }
 
         try {
             Utils.getTokenFromAuthHeader(request.getHeader("Authorization"))
@@ -76,6 +69,12 @@ public class JwtFilter extends OncePerRequestFilter {
             handleJwtException(response, ex);
         }
     }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        return request.getServletPath().startsWith("/api/v1/auth");
+    }
+
     private void handleJwtException(HttpServletResponse response, Exception e) throws IOException {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType("application/json; charset=UTF-8");

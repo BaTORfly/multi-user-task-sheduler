@@ -29,9 +29,11 @@ spring:
     date-format: "yyyy-MM-dd'T'HH:mm:ss'Z'"
     time-zone: "UTC"
 
+server:
+  port: ${SERVER_PORT}
 jwt:
   access:
-    lifetime: ${JWT_ACCESS_LIFETIME} # seconds
+    lifetime: ${JWT_ACCESS_LIFETIME:3600} # seconds
   refresh:
-    lifetime: ${JWT_REFRESH_LIFETIME} # seconds
+    lifetime: ${JWT_REFRESH_LIFETIME:86400} # seconds
   secret: aGZiYmtiYWllYmNpZWFpZWJsZWNldWNlY2xhZWNhaWJlbGNhZWN3Q0VCV0VXSUM=

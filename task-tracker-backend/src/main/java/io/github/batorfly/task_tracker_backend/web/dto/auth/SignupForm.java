@@ -37,5 +37,4 @@ public record SignupForm(
                 groups = PatternGroup.class
         )
         String password
-        ) {
-}
+        ) {}
