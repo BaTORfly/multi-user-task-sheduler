@@ -66,7 +66,14 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDto getUserTaskById(User user, Long taskId) {
-        return null;
+    @Transactional(readOnly = true)
+    public TaskDto getUserTaskById(User currentUser, Long taskId) {
+
+        Task task = taskRepository.findByIdAndUserId(taskId, currentUser.getId())
+                .orElseThrow(() -> new AuthorizationFailedException(
+                        "Task not found or access denied"
+                ));
+
+        return taskMapper.toDto(task);
     }
 }

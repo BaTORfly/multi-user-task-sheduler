@@ -144,4 +144,41 @@ public class TaskRestController {
         return taskService.deleteTaskById(taskId, currentUser);
     }
 
+    @Operation(
+            summary = "Get a user task",
+            description = "Returns an existing task that belongs to the authenticated user.",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Task found successfully.",
+                    content = @Content(
+                            schema = @Schema(implementation = TaskDto.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Authentication failed.",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponse.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Task not found or access denied.",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponse.class)
+                    )
+            )
+    })
+    @GetMapping("/{taskId}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public TaskDto getUserTask(
+            @PathVariable Long taskId,
+            @AuthenticationPrincipal User currentUser
+    ) {
+        return taskService.getUserTaskById(currentUser, taskId);
+    }
 }
