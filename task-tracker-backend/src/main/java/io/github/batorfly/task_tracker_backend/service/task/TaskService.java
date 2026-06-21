@@ -8,7 +8,7 @@ import java.util.List;
 public interface TaskService {
     TaskDto saveTask(User user, TaskDto task);
 
-    TaskDto deleteTaskById(Long id);
+    TaskDto deleteTaskById(Long taskId, User currentUser);
 
     TaskDto updateTask(TaskDto taskDto, Long taskId, User currentUser);
 

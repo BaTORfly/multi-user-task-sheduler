@@ -3,6 +3,7 @@ package io.github.batorfly.task_tracker_backend.service.task;
 import io.github.batorfly.task_tracker_backend.domain.task.Task;
 import io.github.batorfly.task_tracker_backend.domain.user.User;
 import io.github.batorfly.task_tracker_backend.exception.auth.AuthenticationFailedException;
+import io.github.batorfly.task_tracker_backend.exception.auth.AuthorizationFailedException;
 import io.github.batorfly.task_tracker_backend.exception.task.TaskNotFoundException;
 import io.github.batorfly.task_tracker_backend.repository.task.TaskRepository;
 import io.github.batorfly.task_tracker_backend.web.dto.task.TaskDto;
@@ -32,8 +33,16 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDto deleteTaskById(Long id) {
-        return null;
+    @Transactional
+    public TaskDto deleteTaskById(Long taskId, User currentUser) {
+        Task taskToDelete = taskRepository.findByIdAndUserId(taskId, currentUser.getId())
+                .orElseThrow(() -> new AuthorizationFailedException(
+                        "User doesn't have rights to delete this task"
+                ));
+
+        taskRepository.delete(taskToDelete);
+
+        return taskMapper.toDto(taskToDelete);
     }
 
     @Override

@@ -106,6 +106,42 @@ public class TaskRestController {
         return taskService.updateTask(task, taskId, currentUser);
     }
 
-
+    @Operation(
+            summary = "Delete a task",
+            description = "Deletes an existing task that belongs to the authenticated user.",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Task deleted successfully.",
+                    content = @Content(
+                            schema = @Schema(implementation = TaskDto.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Authentication failed.",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponse.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Access denied or user has no rights to delete this task.",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponse.class)
+                    )
+            )
+    })
+    @DeleteMapping("/{taskId}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public TaskDto deleteTask(
+            @PathVariable Long taskId,
+            @AuthenticationPrincipal User currentUser
+    ) {
+        return taskService.deleteTaskById(taskId, currentUser);
+    }
 
 }
