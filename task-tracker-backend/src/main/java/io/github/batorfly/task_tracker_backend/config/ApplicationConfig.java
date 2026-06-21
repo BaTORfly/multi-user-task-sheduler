@@ -25,7 +25,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import tools.jackson.databind.ObjectMapper;
 
-import java.awt.*;
 import java.io.IOException;
 
 import static io.github.batorfly.task_tracker_backend.domain.user.Roles.*;
@@ -70,6 +69,8 @@ public class ApplicationConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(config -> config
+                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**")
+                        .permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/api/v1/tasks/**").hasAnyAuthority(USER.name(),  ADMIN.name())
                         .requestMatchers("/api/v1/users/current").hasAnyAuthority(USER.name(), ADMIN.name())

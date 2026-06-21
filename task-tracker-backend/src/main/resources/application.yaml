@@ -30,7 +30,15 @@ spring:
     time-zone: "UTC"
 
 server:
-  port: ${SERVER_PORT}
+  port: ${SERVER_PORT:8080}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+  packages-to-scan: io.github.batorfly.task_tracker_backend.web.api.controller
+
 jwt:
   access:
     lifetime: ${JWT_ACCESS_LIFETIME:3600} # seconds
