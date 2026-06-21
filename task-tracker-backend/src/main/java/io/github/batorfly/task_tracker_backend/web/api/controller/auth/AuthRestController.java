@@ -30,81 +30,28 @@ public class AuthRestController {
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(
             summary = "Register a new user",
-            description = "Creates a new user account and returns an access token. A refresh token is written to the response cookies.",
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    required = true,
-                    description = "Signup form with validated user profile and credentials.",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = SignupForm.class),
-                            examples = @ExampleObject(
-                                    name = "Valid signup request",
-                                    value = """
-                                            {
-                                              "first_name": "John",
-                                              "last_name": "Smith",
-                                              "email": "john.smith@example.com",
-                                              "password": "StrongPass123"
-                                            }
-                                            """
-                            )
-                    )
-            )
+            description = "Creates a new user account and returns an access token. A refresh token is written to the response cookies."
     )
     @ApiResponses({
             @ApiResponse(
                     responseCode = "201",
                     description = "User registered successfully.",
                     content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = AuthResponseForm.class),
-                            examples = @ExampleObject(
-                                    name = "Successful signup response",
-                                    value = """
-                                            {
-                                              "access_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLnNtaXRoQGV4YW1wbGUuY29tIn0.dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"
-                                            }
-                                            """
-                            )
+                            schema = @Schema(implementation = AuthResponseForm.class)
                     )
             ),
             @ApiResponse(
                     responseCode = "400",
                     description = "Signup form validation failed.",
                     content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ValidationErrorResponse.class),
-                            examples = @ExampleObject(
-                                    name = "Validation error response",
-                                    value = """
-                                            {
-                                              "errorFields": {
-                                                "firstName": "First name must be between 3 and 64 characters",
-                                                "lastName": "Last name must include only letters",
-                                                "email": "Invalid email",
-                                                "password": "Password must contain at least one uppercase and one lowercase letter"
-                                              },
-                                              "timestamp": 1782045600000
-                                            }
-                                            """
-                            )
+                            schema = @Schema(implementation = ValidationErrorResponse.class)
                     )
             ),
             @ApiResponse(
                     responseCode = "409",
                     description = "User with the provided email already exists.",
                     content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ErrorResponse.class),
-                            examples = @ExampleObject(
-                                    name = "User already exists response",
-                                    value = """
-                                            {
-                                              "message": "User already exists",
-                                              "timestamp": 1782045600000
-                                            }
-                                            """
-                            )
+                            schema = @Schema(implementation = ErrorResponse.class)
                     )
             )
     })
