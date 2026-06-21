@@ -68,4 +68,44 @@ public class TaskRestController {
     ) {
         return taskService.saveTask(currentUser, taskDto);
     }
+
+    @Operation(
+            summary = "Update a task",
+            description = "Updates an existing task that belongs to the authenticated user.",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Task updated successfully.",
+                    content = @Content(
+                            schema = @Schema(implementation = TaskDto.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Task form validation failed.",
+                    content = @Content(
+                            schema = @Schema(implementation = ValidationErrorResponse.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Authentication failed or user has no rights to update this task.",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponse.class)
+                    )
+            )
+    })
+    @PutMapping("/{taskId}")
+    public TaskDto updateTask(
+            @PathVariable Long taskId,
+            @Valid @RequestBody TaskDto task,
+            @AuthenticationPrincipal User currentUser
+    ) {
+        return taskService.updateTask(task, taskId, currentUser);
+    }
+
+
+
 }

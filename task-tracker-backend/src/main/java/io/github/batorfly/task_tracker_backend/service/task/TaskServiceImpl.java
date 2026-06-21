@@ -2,11 +2,14 @@ package io.github.batorfly.task_tracker_backend.service.task;
 
 import io.github.batorfly.task_tracker_backend.domain.task.Task;
 import io.github.batorfly.task_tracker_backend.domain.user.User;
+import io.github.batorfly.task_tracker_backend.exception.auth.AuthenticationFailedException;
+import io.github.batorfly.task_tracker_backend.exception.task.TaskNotFoundException;
 import io.github.batorfly.task_tracker_backend.repository.task.TaskRepository;
 import io.github.batorfly.task_tracker_backend.web.dto.task.TaskDto;
 import io.github.batorfly.task_tracker_backend.web.mapper.task.TaskMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,13 +37,18 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public boolean userHasTask(User user, Long taskId) {
-        return false;
-    }
+    @Transactional
+    public TaskDto updateTask(TaskDto taskDto, Long taskId, User currentUser) {
+        Task taskToUpdate = taskRepository.findByIdAndUserId(taskId, currentUser.getId())
+                .orElseThrow(() -> new AuthenticationFailedException(
+                        "User doesn't have rights to change this task"
+                ));
 
-    @Override
-    public TaskDto updateTask(TaskDto taskForm, Long taskId) {
-        return null;
+        taskToUpdate.setTitle(taskDto.title());
+        taskToUpdate.setDescription(taskDto.description());
+        taskToUpdate.setDone(taskDto.isDone());
+
+        return taskMapper.toDto(taskRepository.save(taskToUpdate));
     }
 
     @Override

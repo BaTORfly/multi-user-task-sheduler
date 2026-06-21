@@ -10,9 +10,7 @@ public interface TaskService {
 
     TaskDto deleteTaskById(Long id);
 
-    boolean userHasTask(User user, Long taskId);
-
-    TaskDto updateTask(TaskDto taskForm, Long taskId);
+    TaskDto updateTask(TaskDto taskDto, Long taskId, User currentUser);
 
     List<TaskDto> getUserTasks(User user);
 
