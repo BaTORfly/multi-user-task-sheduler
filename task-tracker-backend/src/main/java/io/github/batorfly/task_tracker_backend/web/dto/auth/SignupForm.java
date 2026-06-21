@@ -7,11 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-interface NotBlankGroup{}
-interface SizeGroup{}
-interface PatternGroup{}
-
-@GroupSequence({NotBlankGroup.class, SizeGroup.class,  PatternGroup.class})
+@GroupSequence({SignupForm.class, SignupForm.NotBlankGroup.class, SignupForm.SizeGroup.class,  SignupForm.PatternGroup.class})
 public record SignupForm(
         @JsonProperty("first_name")
         @NotBlank(message = "First name cannot be empty", groups = NotBlankGroup.class)
@@ -37,4 +33,8 @@ public record SignupForm(
                 groups = PatternGroup.class
         )
         String password
-        ) {}
+        ) {
+    interface NotBlankGroup{}
+    interface SizeGroup{}
+    interface PatternGroup{}
+}
