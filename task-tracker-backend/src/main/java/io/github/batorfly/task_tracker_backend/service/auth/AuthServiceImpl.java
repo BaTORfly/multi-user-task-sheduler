@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * AuthService version 1.0 (so far without the refresh token)
@@ -42,6 +43,7 @@ public class AuthServiceImpl implements AuthService {
         return new AuthResponseForm(tokenPair.accessToken());
     }
 
+    @Transactional
     @Override
     public AuthResponseForm login(LoginForm loginForm, HttpServletResponse response) {
         User user = loginValidator.validateLogin(

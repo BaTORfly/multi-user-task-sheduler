@@ -7,6 +7,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -14,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -39,10 +41,15 @@ public class JwtServiceImpl implements JwtService {
 
     @Override
     public String generateAccessToken(final User user) {
+        List<String> roles = user.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .toList();
+
         Claims claims = Jwts.claims()
                 .subject(user.getEmail())
                 .add("id", user.getId())
-                .add("roles", user.getAuthorities())
+                .add("roles", roles)
                 .build();
 
         Instant validity = Instant.now()
