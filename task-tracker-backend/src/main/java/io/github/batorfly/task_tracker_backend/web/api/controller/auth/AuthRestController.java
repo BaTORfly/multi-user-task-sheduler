@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -94,5 +95,56 @@ public class AuthRestController {
             HttpServletResponse response
     ){
         return authService.login(loginForm, response);
+    }
+
+    @Operation(
+            summary = "Log out a user",
+            description = "Deletes the refresh token cookie from the response."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "User logged out successfully.",
+                    content = @Content
+            )
+    })
+    @PostMapping("/logout")
+    @ResponseStatus(HttpStatus.OK)
+    public void logout(HttpServletRequest request, HttpServletResponse response){
+        authService.logout(request, response);
+    }
+
+    @Operation(
+            summary = "Refresh access token",
+            description = "Creates a new access token using the refresh token from the request cookies."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Access token refreshed successfully.",
+                    content = @Content(
+                            schema = @Schema(implementation = AuthResponseForm.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Request cookies were not found.",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponse.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Refresh token is missing, invalid, expired, or belongs to a non-existing user.",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponse.class)
+                    )
+            )
+    })
+    @PostMapping("/refresh-token")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public AuthResponseForm refreshToken(HttpServletRequest request){
+        return authService.refreshToken(request);
     }
 }
