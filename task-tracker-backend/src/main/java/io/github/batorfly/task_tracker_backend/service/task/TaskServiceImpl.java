@@ -61,8 +61,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDto> getUserTasks(User user) {
-        return List.of();
+    @Transactional(readOnly = true)
+    public List<TaskDto> getUserTasks(User currentUser) {
+        return taskRepository.findAllByUserId(currentUser.getId())
+                .stream()
+                .map(taskMapper::toDto)
+                .toList();
     }
 
     @Override

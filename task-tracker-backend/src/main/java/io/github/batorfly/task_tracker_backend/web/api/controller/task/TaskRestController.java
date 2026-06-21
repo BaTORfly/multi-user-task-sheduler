@@ -6,6 +6,7 @@ import io.github.batorfly.task_tracker_backend.web.dto.error.ErrorResponse;
 import io.github.batorfly.task_tracker_backend.web.dto.error.ValidationErrorResponse;
 import io.github.batorfly.task_tracker_backend.web.dto.task.TaskDto;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -17,6 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/tasks")
@@ -180,5 +183,42 @@ public class TaskRestController {
             @AuthenticationPrincipal User currentUser
     ) {
         return taskService.getUserTaskById(currentUser, taskId);
+    }
+
+    @Operation(
+            summary = "Get user tasks",
+            description = "Returns all tasks that belong to the authenticated user.",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Tasks found successfully.",
+                    content = @Content(
+                            array = @ArraySchema(schema = @Schema(implementation = TaskDto.class))
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Authentication failed.",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponse.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Access denied.",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponse.class)
+                    )
+            )
+    })
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public List<TaskDto> getUserTasks(
+            @AuthenticationPrincipal User currentUser
+    ) {
+        return taskService.getUserTasks(currentUser);
     }
 }
