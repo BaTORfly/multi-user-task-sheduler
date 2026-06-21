@@ -8,7 +8,6 @@ import io.github.batorfly.task_tracker_backend.web.dto.error.ErrorResponse;
 import io.github.batorfly.task_tracker_backend.web.dto.error.ValidationErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -17,7 +16,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,8 +24,6 @@ import org.springframework.web.bind.annotation.*;
 public class AuthRestController {
     private final AuthService authService;
 
-    @PostMapping("/signup")
-    @ResponseStatus(HttpStatus.CREATED)
     @Operation(
             summary = "Register a new user",
             description = "Creates a new user account and returns an access token. A refresh token is written to the response cookies."
@@ -55,6 +51,8 @@ public class AuthRestController {
                     )
             )
     })
+    @PostMapping("/signup")
+    @ResponseStatus(HttpStatus.CREATED)
     public AuthResponseForm register(
             @Valid @RequestBody SignupForm signupForm,
             HttpServletResponse response
@@ -62,6 +60,35 @@ public class AuthRestController {
         return authService.register(signupForm, response);
     }
 
+    @Operation(
+            summary = "Log in a user",
+            description = "Authenticates a user by email and password, then returns an access token. A refresh token is written to the response cookies."
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "User authenticated successfully.",
+                    content = @Content(
+                            schema = @Schema(implementation = AuthResponseForm.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Login form validation failed.",
+                    content = @Content(
+                            schema = @Schema(implementation = ValidationErrorResponse.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Authentication failed.",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponse.class)
+                    )
+            )
+    })
+    @PostMapping("login")
+    @ResponseStatus(HttpStatus.OK)
     public AuthResponseForm login(
             @Valid @RequestBody LoginForm loginForm,
             HttpServletResponse response
