@@ -1,4 +1,4 @@
-package io.github.batorfly.task_tracker_backend.web.mapper;
+package io.github.batorfly.task_tracker_backend.mapper;
 
 import java.util.List;
 

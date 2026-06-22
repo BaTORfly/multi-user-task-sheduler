@@ -1,8 +1,8 @@
 package io.github.batorfly.task_tracker_backend.service.auth;
 
-import io.github.batorfly.task_tracker_backend.web.dto.auth.AuthResponseForm;
-import io.github.batorfly.task_tracker_backend.web.dto.auth.LoginForm;
-import io.github.batorfly.task_tracker_backend.web.dto.auth.SignupForm;
+import io.github.batorfly.task_tracker_backend.dto.auth.AuthResponseForm;
+import io.github.batorfly.task_tracker_backend.dto.auth.LoginForm;
+import io.github.batorfly.task_tracker_backend.dto.auth.SignupForm;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 

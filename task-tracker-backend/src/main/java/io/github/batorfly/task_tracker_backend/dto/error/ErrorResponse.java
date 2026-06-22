@@ -1,4 +1,4 @@
-package io.github.batorfly.task_tracker_backend.web.dto.error;
+package io.github.batorfly.task_tracker_backend.dto.error;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

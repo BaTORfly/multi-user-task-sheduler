@@ -1,11 +1,11 @@
-package io.github.batorfly.task_tracker_backend.web.api.controller.auth;
+package io.github.batorfly.task_tracker_backend.api.controller.auth;
 
 import io.github.batorfly.task_tracker_backend.service.auth.AuthService;
-import io.github.batorfly.task_tracker_backend.web.dto.auth.AuthResponseForm;
-import io.github.batorfly.task_tracker_backend.web.dto.auth.LoginForm;
-import io.github.batorfly.task_tracker_backend.web.dto.auth.SignupForm;
-import io.github.batorfly.task_tracker_backend.web.dto.error.ErrorResponse;
-import io.github.batorfly.task_tracker_backend.web.dto.error.ValidationErrorResponse;
+import io.github.batorfly.task_tracker_backend.dto.auth.AuthResponseForm;
+import io.github.batorfly.task_tracker_backend.dto.auth.LoginForm;
+import io.github.batorfly.task_tracker_backend.dto.auth.SignupForm;
+import io.github.batorfly.task_tracker_backend.dto.error.ErrorResponse;
+import io.github.batorfly.task_tracker_backend.dto.error.ValidationErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -6,7 +6,7 @@ import io.github.batorfly.task_tracker_backend.domain.user.User;
 import io.github.batorfly.task_tracker_backend.exception.user.UserAlreadyExists;
 import io.github.batorfly.task_tracker_backend.service.authority.AuthorityService;
 import io.github.batorfly.task_tracker_backend.service.user.UserService;
-import io.github.batorfly.task_tracker_backend.web.dto.auth.SignupForm;
+import io.github.batorfly.task_tracker_backend.dto.auth.SignupForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;

@@ -2,8 +2,8 @@ package io.github.batorfly.task_tracker_backend.service.user;
 
 import io.github.batorfly.task_tracker_backend.domain.user.User;
 import io.github.batorfly.task_tracker_backend.repository.user.UserRepository;
-import io.github.batorfly.task_tracker_backend.web.dto.user.UserWithTasksDto;
-import io.github.batorfly.task_tracker_backend.web.mapper.user.UserMapper;
+import io.github.batorfly.task_tracker_backend.dto.user.UserWithTasksDto;
+import io.github.batorfly.task_tracker_backend.mapper.user.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

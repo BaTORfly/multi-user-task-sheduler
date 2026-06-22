@@ -1,7 +1,7 @@
-package io.github.batorfly.task_tracker_backend.web.dto.user;
+package io.github.batorfly.task_tracker_backend.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.github.batorfly.task_tracker_backend.web.dto.task.TaskDto;
+import io.github.batorfly.task_tracker_backend.dto.task.TaskDto;
 
 import java.util.Set;
 

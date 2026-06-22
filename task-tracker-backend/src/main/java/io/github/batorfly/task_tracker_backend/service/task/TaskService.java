@@ -1,7 +1,7 @@
 package io.github.batorfly.task_tracker_backend.service.task;
 
 import io.github.batorfly.task_tracker_backend.domain.user.User;
-import io.github.batorfly.task_tracker_backend.web.dto.task.TaskDto;
+import io.github.batorfly.task_tracker_backend.dto.task.TaskDto;
 
 import java.util.List;
 

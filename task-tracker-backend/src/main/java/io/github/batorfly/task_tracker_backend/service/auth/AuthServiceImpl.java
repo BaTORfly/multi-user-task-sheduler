@@ -5,10 +5,10 @@ import io.github.batorfly.task_tracker_backend.exception.auth.AuthenticationFail
 import io.github.batorfly.task_tracker_backend.service.authority.LoginValidator;
 import io.github.batorfly.task_tracker_backend.service.jwt.JwtService;
 import io.github.batorfly.task_tracker_backend.service.user.UserService;
-import io.github.batorfly.task_tracker_backend.web.dto.auth.AuthResponseForm;
-import io.github.batorfly.task_tracker_backend.web.dto.auth.LoginForm;
-import io.github.batorfly.task_tracker_backend.web.dto.auth.SignupForm;
-import io.github.batorfly.task_tracker_backend.web.dto.auth.TokenPair;
+import io.github.batorfly.task_tracker_backend.dto.auth.AuthResponseForm;
+import io.github.batorfly.task_tracker_backend.dto.auth.LoginForm;
+import io.github.batorfly.task_tracker_backend.dto.auth.SignupForm;
+import io.github.batorfly.task_tracker_backend.dto.auth.TokenPair;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

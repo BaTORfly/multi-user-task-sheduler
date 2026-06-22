@@ -4,7 +4,7 @@ import io.github.batorfly.task_tracker_backend.domain.user.User;
 import io.github.batorfly.task_tracker_backend.exception.auth.CookiesNotFoundException;
 import io.github.batorfly.task_tracker_backend.exception.auth.RefreshTokenNotFoundException;
 import io.github.batorfly.task_tracker_backend.service.jwt.JwtService;
-import io.github.batorfly.task_tracker_backend.web.dto.auth.TokenPair;
+import io.github.batorfly.task_tracker_backend.dto.auth.TokenPair;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

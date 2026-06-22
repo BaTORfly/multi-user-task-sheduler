@@ -1,8 +1,8 @@
-package io.github.batorfly.task_tracker_backend.web.mapper.task;
+package io.github.batorfly.task_tracker_backend.mapper.task;
 
 import io.github.batorfly.task_tracker_backend.domain.task.Task;
-import io.github.batorfly.task_tracker_backend.web.dto.task.TaskDto;
-import io.github.batorfly.task_tracker_backend.web.mapper.Mappable;
+import io.github.batorfly.task_tracker_backend.dto.task.TaskDto;
+import io.github.batorfly.task_tracker_backend.mapper.Mappable;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

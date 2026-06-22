@@ -1,4 +1,4 @@
-package io.github.batorfly.task_tracker_backend.web.api.handler;
+package io.github.batorfly.task_tracker_backend.api.handler;
 
 import io.github.batorfly.task_tracker_backend.exception.UnexpectedServerException;
 import io.github.batorfly.task_tracker_backend.exception.auth.AuthenticationFailedException;
@@ -8,8 +8,8 @@ import io.github.batorfly.task_tracker_backend.exception.auth.RefreshTokenNotFou
 import io.github.batorfly.task_tracker_backend.exception.task.TaskNotFoundException;
 import io.github.batorfly.task_tracker_backend.exception.user.UserAlreadyExists;
 import io.github.batorfly.task_tracker_backend.exception.user.UserNotFoundException;
-import io.github.batorfly.task_tracker_backend.web.dto.error.ErrorResponse;
-import io.github.batorfly.task_tracker_backend.web.dto.error.ValidationErrorResponse;
+import io.github.batorfly.task_tracker_backend.dto.error.ErrorResponse;
+import io.github.batorfly.task_tracker_backend.dto.error.ValidationErrorResponse;
 import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

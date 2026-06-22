@@ -1,4 +1,4 @@
-package io.github.batorfly.task_tracker_backend.web.dto.auth;
+package io.github.batorfly.task_tracker_backend.dto.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;

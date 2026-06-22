@@ -1,12 +1,12 @@
-package io.github.batorfly.task_tracker_backend.web.mapper.user;
+package io.github.batorfly.task_tracker_backend.mapper.user;
 
 import io.github.batorfly.task_tracker_backend.domain.task.Task;
 import io.github.batorfly.task_tracker_backend.domain.user.User;
-import io.github.batorfly.task_tracker_backend.web.dto.task.TaskDto;
-import io.github.batorfly.task_tracker_backend.web.dto.user.UserWithTasksDto;
-import io.github.batorfly.task_tracker_backend.web.dto.user.UserWithoutTasksDto;
-import io.github.batorfly.task_tracker_backend.web.mapper.Mappable;
-import io.github.batorfly.task_tracker_backend.web.mapper.task.TaskMapper;
+import io.github.batorfly.task_tracker_backend.dto.task.TaskDto;
+import io.github.batorfly.task_tracker_backend.dto.user.UserWithTasksDto;
+import io.github.batorfly.task_tracker_backend.dto.user.UserWithoutTasksDto;
+import io.github.batorfly.task_tracker_backend.mapper.Mappable;
+import io.github.batorfly.task_tracker_backend.mapper.task.TaskMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,10 @@
-package io.github.batorfly.task_tracker_backend.web.api.controller.task;
+package io.github.batorfly.task_tracker_backend.api.controller.task;
 
 import io.github.batorfly.task_tracker_backend.domain.user.User;
 import io.github.batorfly.task_tracker_backend.service.task.TaskService;
-import io.github.batorfly.task_tracker_backend.web.dto.error.ErrorResponse;
-import io.github.batorfly.task_tracker_backend.web.dto.error.ValidationErrorResponse;
-import io.github.batorfly.task_tracker_backend.web.dto.task.TaskDto;
+import io.github.batorfly.task_tracker_backend.dto.error.ErrorResponse;
+import io.github.batorfly.task_tracker_backend.dto.error.ValidationErrorResponse;
+import io.github.batorfly.task_tracker_backend.dto.task.TaskDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;

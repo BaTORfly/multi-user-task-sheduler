@@ -1,7 +1,7 @@
 package io.github.batorfly.task_tracker_backend.config;
 
 import io.github.batorfly.task_tracker_backend.security.filter.JwtFilter;
-import io.github.batorfly.task_tracker_backend.web.dto.error.ErrorResponse;
+import io.github.batorfly.task_tracker_backend.dto.error.ErrorResponse;
 import io.github.batorfly.task_tracker_backend.service.user.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
