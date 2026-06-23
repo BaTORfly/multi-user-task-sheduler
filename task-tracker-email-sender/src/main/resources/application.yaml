@@ -1,0 +1,32 @@
+spring:
+  main:
+    log-startup-info: false
+    banner-mode: 'off'
+  kafka:
+    bootstrap-servers: kafka:9092
+    listener:
+      ack-mode: record
+    consumer:
+      group-id: kafka-core-consumer-group
+      auto-offset-reset: earliest
+    properties:
+      metrics:
+        num:
+          samples: 4
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+server:
+  port: 8081
