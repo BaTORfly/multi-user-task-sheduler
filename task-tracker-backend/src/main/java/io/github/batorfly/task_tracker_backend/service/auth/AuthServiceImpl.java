@@ -4,6 +4,7 @@ import io.github.batorfly.task_tracker_backend.domain.user.User;
 import io.github.batorfly.task_tracker_backend.exception.auth.AuthenticationFailedException;
 import io.github.batorfly.task_tracker_backend.service.authority.LoginValidator;
 import io.github.batorfly.task_tracker_backend.service.jwt.JwtService;
+import io.github.batorfly.task_tracker_backend.service.kafka.KafkaService;
 import io.github.batorfly.task_tracker_backend.service.user.UserService;
 import io.github.batorfly.task_tracker_backend.dto.auth.AuthResponseForm;
 import io.github.batorfly.task_tracker_backend.dto.auth.LoginForm;
@@ -28,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRegistrationService registrationService;
     private final UserService userService;
     private final JwtService jwtService;
-
+    private final KafkaService kafkaService;
 
     @Override
     public AuthResponseForm register(SignupForm signupForm,
@@ -39,6 +40,9 @@ public class AuthServiceImpl implements AuthService {
 
         TokenPair tokenPair = tokenService.createTokenPair(user);
         tokenService.createRefreshTokenCookie(response, tokenPair.refreshToken());
+
+        kafkaService.sendWelcomeEmail(user.getEmail(), signupForm.firstName());
+        log.info("Sent welcome email to kafka for {}", user.getEmail());
 
         return new AuthResponseForm(tokenPair.accessToken());
     }
