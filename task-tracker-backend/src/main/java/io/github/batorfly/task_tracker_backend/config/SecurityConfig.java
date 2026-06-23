@@ -33,7 +33,7 @@ import static io.github.batorfly.task_tracker_backend.domain.user.Roles.*;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class ApplicationConfig {
+public class SecurityConfig {
 
     private final UserService userService;
 
@@ -64,8 +64,8 @@ public class ApplicationConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exceptions -> exceptions
-                        .authenticationEntryPoint(ApplicationConfig::handleAuthenticationException)
-                        .accessDeniedHandler(ApplicationConfig::handleAccessDeniedException))
+                        .authenticationEntryPoint(SecurityConfig::handleAuthenticationException)
+                        .accessDeniedHandler(SecurityConfig::handleAccessDeniedException))
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(config -> config
