@@ -27,6 +27,20 @@
         "relativeToChangelogFile": "true",
         "file": "changes/004-insert-admin.sql"
       }
+    },
+    {
+      "comment": "Initial regular users insertion",
+      "include": {
+        "relativeToChangelogFile": "true",
+        "file": "changes/005-insert-users.sql"
+      }
+    },
+    {
+      "comment": "Initial regular user tasks insertion",
+      "include": {
+        "relativeToChangelogFile": "true",
+        "file": "changes/006-insert-user-tasks.sql"
+      }
     }
   ]
 }

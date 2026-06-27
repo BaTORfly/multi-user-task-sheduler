@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    @Query("SELECT DISTINCT u FROM User u LEFT JOIN u.tasks WHERE u.enabled = true")
+    @Query("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.tasks WHERE u.enabled = true")
     List<User> getAllUsersWithTasks();
 
     @EntityGraph(attributePaths = "authorities")

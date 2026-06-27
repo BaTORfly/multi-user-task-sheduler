@@ -7,6 +7,7 @@ import io.github.batorfly.task_tracker_backend.dto.user.UserWithTasksDto;
 import io.github.batorfly.task_tracker_backend.dto.user.UserWithoutTasksDto;
 import io.github.batorfly.task_tracker_backend.mapper.user.UserMapper;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -63,6 +64,34 @@ public class UserRestController {
         return userMapper.toDto(currentUser);
     }
 
+    @Operation(
+            summary = "Get all users with tasks",
+            description = "Returns all users with their tasks.",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Users with tasks returned successfully.",
+                    content = @Content(
+                            array = @ArraySchema(schema = @Schema(implementation = UserWithTasksDto.class))
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Authentication failed.",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponse.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Access denied.",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponse.class)
+                    )
+            )
+    })
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody

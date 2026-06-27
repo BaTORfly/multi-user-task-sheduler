@@ -31,7 +31,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.getAllUsersWithTasks().stream().map(userMapper::toDtoWithTasks).toList();
     }
 
-
     @Override
     public Optional<User> findById(Long userId) {
         return Optional.empty();
