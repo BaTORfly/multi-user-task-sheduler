@@ -1,0 +1,10 @@
+target
+build
+.env
+
+.idea
+.vscode
+
+*.iml
+*.iws
+*.ipr
