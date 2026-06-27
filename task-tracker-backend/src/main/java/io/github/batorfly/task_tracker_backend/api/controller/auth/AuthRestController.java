@@ -141,6 +141,7 @@ public class AuthRestController {
                     )
             )
     })
+
     @PostMapping("/refresh-token")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
