@@ -26,7 +26,7 @@ public class KafkaService {
             EmailDto emailToSend = new EmailDto(
                     email,
                     WELCOME_HEADER.formatted(firstName.trim()),
-                    WELCOME_SUBJECT.formatted(firstName.trim())
+                    WELCOME_SUBJECT.formatted(firstName.trim(), email)
             );
             String json = objectMapper.writeValueAsString(emailToSend);
             kafkaTemplate.send(EMAIL_SENDING_TOPIC, "%d".formatted(new Random().nextInt(0,3)), json);
