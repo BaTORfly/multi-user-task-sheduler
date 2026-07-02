@@ -21,7 +21,7 @@ public class KafkaEmailConsumer {
         try {
             EmailDto emailDto = objectMapper.readValue(eDto, EmailDto.class);
             mailService.sendEmail(emailDto.to(), emailDto.header(), emailDto.text());
-            log.info("Text {} with header {} sent to {}", emailDto.text(), emailDto.header(), emailDto.to());
+            log.info("Text with header '{}' sent to '{}'", emailDto.header(), emailDto.to());
         } catch (JacksonException e) {
             throw new  RuntimeException(e);
         } catch (MailException e) {
