@@ -1,0 +1,27 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+  main:
+    banner-mode: 'off'
+    log-startup-info: false
+  kafka:
+    bootstrap-servers: localhost:9092
+    listener:
+      ack-mode: record
+    consumer:
+      group-id: kafka-core-consumer-group
+      auto-offset-reset: earliest
+    properties:
+      metrics:
+        num:
+          samples: 4
+  mail:
+    host: localhost
+    port: 2525
+    protocol: smtp
+    username: test@example.com
+    password: test
+
+server:
+  port: 0

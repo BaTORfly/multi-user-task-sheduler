@@ -1,52 +1,8 @@
 spring:
   application:
     name: task-tracker-backend
-
-  datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
-    driver-class-name: org.postgresql.Driver
-
-  liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.json
-    enabled: true
-    parameters:
-      scheduler.email: ${SCHEDULER_EMAIL}
-      scheduler.hashed.password: ${SCHEDULER_HASHED_PASSWORD}
-
-  jpa:
-    hibernate:
-      ddl-auto: none
-    show-sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
-        time_zone: UTC
-    open-in-view: false
-
-  jackson:
-    date-format: "yyyy-MM-dd'T'HH:mm:ss'Z'"
-    time-zone: "UTC"
-
-  kafka:
-    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
-
-server:
-  port: ${SERVER_PORT:8080}
-
-springdoc:
-  override-with-generic-response: false
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-  packages-to-scan: io.github.batorfly.task_tracker_backend.api.controller
-
-jwt:
-  access:
-    lifetime: ${JWT_ACCESS_LIFETIME:3600} # seconds
-  refresh:
-    lifetime: ${JWT_REFRESH_LIFETIME:86400} # seconds
-  secret: aGZiYmtiYWllYmNpZWFpZWJsZWNldWNlY2xhZWNhaWJlbGNhZWN3Q0VCV0VXSUM=
+  config:
+    import: "configserver:http://config-server:8888"
+  cloud:
+    config:
+      fail-fast: true
