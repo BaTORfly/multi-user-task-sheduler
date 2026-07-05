@@ -5,3 +5,5 @@
 *.ipr
 
 logs_error.md
+
+.env
