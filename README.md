@@ -41,29 +41,11 @@
 
 ## 🏗️ Архитектура
 
-```mermaid
-flowchart LR
-    Client["Client / Swagger / API user"] --> Backend["task-tracker-backend<br/>REST API, JWT, business logic"]
+### System Context Diagram
+![](docs/architecture/c4_system_context.png)
 
-    Backend --> Postgres["PostgreSQL"]
-    Backend --> Liquibase["Liquibase migrations"]
-    Backend --> Kafka["Kafka<br/>EMAIL_SENDING_TASKS"]
-
-    Scheduler["task-tracker-scheduler<br/>daily reports"] --> Backend
-    Scheduler --> Kafka
-
-    Kafka --> EmailSender["task-tracker-email-sender<br/>Kafka consumer"]
-    EmailSender --> SMTP["SMTP mail provider"]
-
-    ConfigServer["config-server<br/>Spring Cloud Config"] -. config .-> Backend
-    ConfigServer -. config .-> Scheduler
-    ConfigServer -. config .-> EmailSender
-    ConfigServer -. config .-> Eureka
-
-    Eureka["eureka-server<br/>service discovery"] -. discovery .-> Backend
-    Eureka -. discovery .-> Scheduler
-    Eureka -. discovery .-> EmailSender
-```
+### Container Diagram (без eureka-server и config-server)
+![](docs/architecture/c4_container.png)
 
 ## 🗃️ Схема базы данных
 
@@ -103,14 +85,6 @@ erDiagram
     }
 ```
 
-🔎 Ключевые ограничения:
-
-- `users.email` уникален.
-- `roles.user_id` ссылается на `users.user_id` с `ON DELETE CASCADE`.
-- `tasks.user_id` ссылается на `users.user_id` с `ON DELETE CASCADE`.
-- `roles.role` ограничен значениями `USER` и `ADMIN`.
-- Для связей созданы индексы `idx_roles_user_id` и `idx_tasks_user_id`.
-
 ## 🛠️ Технологический стек
 
 | Категория | Технологии |
@@ -126,15 +100,15 @@ erDiagram
 | Build / Runtime | Maven, Docker, Docker Compose |
 | Testing | JUnit, Spring Boot Test, Spring Security Test, Testcontainers, Spring Kafka Test |
 
-## 📦 Модули проекта
+## 📦 Краткое описание микросервисов
 
-| Модуль | Назначение |
-| --- | --- |
-| `config-server` | Централизованная конфигурация микросервисов через Spring Cloud Config. |
-| `eureka-server` | Service discovery для регистрации и обнаружения сервисов. |
-| `task-tracker-backend` | Основной REST API: auth, users, tasks, JWT, PostgreSQL, Liquibase, Kafka publishing. |
-| `task-tracker-scheduler` | Планировщик ежедневных отчетов по задачам; получает данные из backend и публикует email-команды в Kafka. |
-| `task-tracker-email-sender` | Kafka consumer, который получает email-команды и отправляет письма через SMTP. |
+| Тип       | Сервис                      | Назначение |
+|-----------|-----------------------------| --- |
+| служебный | `config-server`             | Централизованная конфигурация микросервисов через Spring Cloud Config. |
+| служебный | `eureka-server`             | Service discovery для регистрации и обнаружения сервисов. |
+| бизнес    | `task-tracker-backend`      | Основной REST API: auth, users, tasks, JWT, PostgreSQL, Liquibase, Kafka publishing. |
+| бизнес    | `task-tracker-scheduler`    | Планировщик ежедневных отчетов по задачам; получает данные из backend и публикует email-команды в Kafka. |
+| бизнес    | `task-tracker-email-sender` | Kafka consumer, который получает email-команды и отправляет письма через SMTP. |
 
 ## ⚡ Быстрый запуск
 
@@ -208,7 +182,7 @@ Authorization: Bearer <access_token>
 - unit tests для формирования email-отчетов scheduler-сервисом;
 - context load tests для микросервисов.
 
-## 💼 Что проект демонстрирует работодателю
+## 💼 Проект демонстрирует
 
 - Умение проектировать backend не как один монолитный CRUD, а как набор взаимодействующих сервисов.
 - Практическое использование Spring Cloud Config и Eureka в микросервисной архитектуре.
