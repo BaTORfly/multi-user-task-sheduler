@@ -218,7 +218,9 @@ cd multi-user-task-sheduler
 - `.env.dev.example` — пример для запуска в режиме `dev`.
 - `.env.prod.example` — пример для запуска в режиме `prod`.
 
-Шаблоны уже заполнены демонстрационными значениями, чтобы проект можно было быстро запустить и проверить. Для реального production-окружения эти значения нужно заменить на собственные.
+Шаблоны уже заполнены демонстрационными значениями, чтобы проект можно было быстро запустить и проверить.
+
+Для начала необходимо создать `.env` в корне проекта
 
 Для dev-режима скопируйте шаблон в `.env`:
 
@@ -284,6 +286,21 @@ docker compose -f docker-compose-dev.yml down
 ```powershell
 docker compose -f docker-compose-prod.yml down
 ```
+
+### 5. Описание порядка запуска сервисов
+
+1. `postgresdb`, `kafka`, `config-server` стартуют первыми, между ними зависимостей нет.
+
+2. `eureka-server` стартует после `config-server`, причем ждет `config-server: service_healthy`.
+
+3. `task-tracker-email-sender` стартует после:
+`kafka: service_started`, `config-server: service_healthy`, `eureka-server: service_healthy`.
+
+4. `task-tracker-backend` стартует после:
+`postgresdb: service_healthy`, `kafka: service_started`, `config-server: service_healthy`, `eureka-server: service_healthy`.
+
+5. `task-tracker-scheduler` стартует после:
+`kafka: service_started`, `config-server: service_healthy`, `eureka-server: service_healthy`, `task-tracker-backend: service_started.`
 
 ### 🔗 Основные адреса
 
