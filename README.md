@@ -193,7 +193,7 @@ sequenceDiagram
 ### 🐳 Запуск через Docker Compose
 
 ```powershell
-copy .env.example .env
+copy .env.dev.example .env
 docker compose -f docker-compose-dev.yml up --build
 ```
 
