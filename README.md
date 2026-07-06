@@ -85,6 +85,79 @@ erDiagram
     }
 ```
 
+## Диаграммы потока запросов login и signup
+
+### signup
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Client
+    participant Controller as AuthRestController
+    participant AuthService
+    participant Registration as UserRegistrationService
+    participant DB as PostgreSQL
+    participant TokenService
+    participant JwtService
+    participant KafkaService
+    participant Kafka as Kafka topic EMAIL_SENDING_TASKS
+    participant EmailSender as task-tracker-email-sender
+    participant SMTP
+
+    Client->>Controller: POST /api/v1/auth/signup
+    Controller->>AuthService: register(signupForm, response)
+    AuthService->>Registration: registerUser(signupForm)
+    Registration->>DB: INSERT user and role
+    DB-->>Registration: persisted User
+    Registration-->>AuthService: User
+
+    AuthService->>TokenService: createTokenPair(user)
+    TokenService->>JwtService: generate access token
+    TokenService->>JwtService: generate refresh token
+    JwtService-->>TokenService: JWT tokens
+    TokenService-->>AuthService: TokenPair
+    AuthService->>TokenService: createRefreshTokenCookie(response, refreshToken)
+
+    AuthService->>KafkaService: sendWelcomeEmail(email, firstName)
+    KafkaService->>Kafka: publish EmailDto JSON
+
+    AuthService-->>Controller: AuthResponseForm(accessToken)
+    Controller-->>Client: 201 Created + access token + refresh cookie
+
+    Kafka-->>EmailSender: consume EmailDto JSON
+    EmailSender->>SMTP: send welcome email
+```
+
+### login
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Client
+    participant Controller as AuthRestController
+    participant AuthService
+    participant LoginValidator
+    participant DB as PostgreSQL
+    participant TokenService
+    participant JwtService
+
+    Client->>Controller: POST /api/v1/auth/login
+    Controller->>AuthService: login(loginForm, response)
+    AuthService->>LoginValidator: validateLogin(email, password)
+    LoginValidator->>DB: SELECT user by email
+    DB-->>LoginValidator: User with password hash and roles
+    LoginValidator-->>AuthService: authenticated User
+
+    AuthService->>TokenService: createTokenPair(user)
+    TokenService->>JwtService: generate access token
+    TokenService->>JwtService: generate refresh token
+    JwtService-->>TokenService: JWT tokens
+    TokenService-->>AuthService: TokenPair
+    AuthService->>TokenService: createRefreshTokenCookie(response, refreshToken)
+
+    AuthService-->>Controller: AuthResponseForm(accessToken)
+    Controller-->>Client: 200 OK + access token + refresh cookie
+```
 ## 🛠️ Технологический стек
 
 | Категория | Технологии |
