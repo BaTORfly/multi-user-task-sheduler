@@ -23,7 +23,9 @@ management:
 
 logging:
   level:
-    root: INFO
+    root: WARN
+    io.github.batorfly: INFO
+    org.springframework: WARN
     com.netflix.eureka: WARN
     com.netflix.discovery: WARN
     org.springframework.cloud.netflix.eureka: WARN

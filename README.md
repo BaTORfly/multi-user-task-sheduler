@@ -4,6 +4,20 @@
 
 Проект демонстрирует не только CRUD API, но и полноценную распределенную архитектуру: JWT-аутентификацию, централизованную конфигурацию, service discovery, PostgreSQL с миграциями Liquibase, асинхронную обработку email-команд через Kafka и отдельный scheduler-сервис для ежедневных отчетов по задачам.
 
+## 📚 Содержание
+
+- [Основные функции](#-основные-функции)
+- [Архитектура](#-архитектура)
+- [Схема базы данных](#-схема-базы-данных)
+- [Диаграммы потока запросов login и signup](#диаграммы-потока-запросов-login-и-signup)
+- [Технологический стек](#-технологический-стек)
+- [Краткое описание микросервисов](#-краткое-описание-микросервисов)
+- [Быстрый запуск](#-быстрый-запуск)
+- [API](#-api)
+- [Тестирование](#-тестирование)
+- [Проект демонстрирует](#-проект-демонстрирует)
+- [Контакты](#-контакты)
+
 ## 🌟 Основные функции
 
 ### 👤 Работа с пользователями
@@ -190,21 +204,86 @@ sequenceDiagram
 - Docker и Docker Compose.
 - Свободные порты: `5432`, `8888`, `8761`, `8080`, `8081`, `8082`, `9092`.
 
-### 🐳 Запуск через Docker Compose
+### 1. Клонируйте репозиторий
+
+```powershell
+git clone https://github.com/BaTORfly/multi-user-task-sheduler.git
+cd multi-user-task-sheduler
+```
+
+### 2. Переменные окружения
+
+В проекте есть два шаблона переменных окружения:
+
+- `.env.dev.example` — пример для запуска в режиме `dev`.
+- `.env.prod.example` — пример для запуска в режиме `prod`.
+
+Шаблоны уже заполнены демонстрационными значениями, чтобы проект можно было быстро запустить и проверить. Для реального production-окружения эти значения нужно заменить на собственные.
+
+Для dev-режима скопируйте шаблон в `.env`:
 
 ```powershell
 copy .env.dev.example .env
+```
+
+Для prod-режима скопируйте шаблон в `.env`:
+
+```powershell
+copy .env.prod.example .env
+```
+
+Основные переменные окружения на примере `.env.prod.example`:
+
+| Переменная | Описание                                                                                                        |
+| --- |-----------------------------------------------------------------------------------------------------------------|
+| `PROD_SPRING_PROFILES_ACTIVE` | Spring-профиль для prod-запуска. По умолчанию `prod`.                                                           |
+| `CONFIG_REPOSITORY_URI` | Git-репозиторий, из которого Config Server загружает конфиги.                                                   |
+| `PROD_CONFIG_REPOSITORY_LABEL` | Ветка, тег или commit hash репозитория конфигураций для prod-режима.                                            |
+| `POSTGRES_DB` | Имя базы данных PostgreSQL.                                                                                     |
+| `POSTGRES_USER` | Пользователь PostgreSQL.                                                                                        |
+| `POSTGRES_PASSWORD` | Пароль пользователя PostgreSQL.                                                                                 |
+| `JWT_SECRET` | Секрет для подписи JWT access и refresh token.                                                                  |
+| `JWT_ACCESS_LIFETIME` | Время жизни access token в секундах.                                                                            |
+| `JWT_REFRESH_LIFETIME` | Время жизни refresh token в секундах.                                                                           |
+| `SCHEDULER_EMAIL` | Email технического scheduler-пользователя.                                                                      |
+| `SCHEDULER_PASSWORD` | Пароль scheduler-пользователя для авторизации scheduler-сервиса в backend.                                      |
+| `SCHEDULER_HASHED_PASSWORD` | BCrypt-хеш пароля (10 раундов) scheduler-пользователя для начальной записи через Liquibase.                     |
+| `SCHEDULER_DAILY_CRON` | Cron-выражение ежедневного запуска отчётов scheduler-сервисом.                                                  |
+| `SCHEDULER_TIME_ZONE` | Часовой пояс scheduler-сервиса.                                                                                 |
+| `SPRING_MAIL_HOST` | SMTP host для отправки email.                                                                                   |
+| `SPRING_MAIL_PORT` | SMTP port                                                                                                       |
+| `SPRING_MAIL_USERNAME` | SMTP username - tasktrackerpetproject@gmail.com - служебная почта системы, создана специально для этого проекта |
+| `SPRING_MAIL_PASSWORD` | application password tasktrackerpetproject@gmail.com                                                            |
+
+### 3. Запуск приложения
+
+Dev-режим:
+
+```powershell
 docker compose -f docker-compose-dev.yml up --build
 ```
 
-Для prod-like запуска с профилем `prod`, git-backed Config Server и ротацией Docker-логов:
+Prod-режим:
 
 ```powershell
-copy .env.prod.example .env.prod
-docker compose --env-file .env.prod -f docker-compose-prod.yml up --build -d
+docker compose -f docker-compose-prod.yml up --build -d
 ```
 
 После запуска Docker Compose поднимет PostgreSQL, Kafka, Config Server, Eureka Server и все сервисы task tracker.
+
+### 4. Остановка приложения
+
+Остановить dev-режим:
+
+```powershell
+docker compose -f docker-compose-dev.yml down
+```
+
+Остановить prod-режим:
+
+```powershell
+docker compose -f docker-compose-prod.yml down
+```
 
 ### 🔗 Основные адреса
 

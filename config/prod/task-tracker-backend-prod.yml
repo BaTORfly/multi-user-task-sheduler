@@ -61,7 +61,9 @@ jwt:
 
 logging:
   level:
-    root: INFO
+    root: WARN
+    io.github.batorfly: INFO
+    org.springframework: WARN
     org.hibernate.SQL: WARN
     org.hibernate.orm.jdbc.bind: WARN
     org.apache.kafka: WARN

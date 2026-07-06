@@ -45,7 +45,9 @@ backend:
 
 logging:
   level:
-    root: INFO
+    root: WARN
+    io.github.batorfly: INFO
+    org.springframework: WARN
     org.apache.kafka: WARN
     org.springframework.kafka: WARN
     com.netflix.eureka: WARN

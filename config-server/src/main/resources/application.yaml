@@ -22,3 +22,9 @@ management:
     health:
       probes:
         enabled: true
+
+logging:
+  level:
+    root: ${LOGGING_LEVEL_ROOT:INFO}
+    io.github.batorfly: ${LOGGING_LEVEL_IO_GITHUB_BATORFLY:INFO}
+    org.springframework: ${LOGGING_LEVEL_ORG_SPRINGFRAMEWORK:INFO}
