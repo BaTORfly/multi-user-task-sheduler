@@ -198,3 +198,4 @@ Authorization: Bearer <access_token>
 - Автор: Биликтуев Батор
 - Email: `batojjk@gmail.com`, `bator.biliktuev@mail.ru`
 - GitHub: [BaTORfly](https://github.com/BaTORfly)
+- telegram: @batorffly
