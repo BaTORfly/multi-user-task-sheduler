@@ -194,7 +194,14 @@ sequenceDiagram
 
 ```powershell
 copy .env.example .env
-docker compose up --build
+docker compose -f docker-compose-dev.yml up --build
+```
+
+Для prod-like запуска с профилем `prod`, git-backed Config Server и ротацией Docker-логов:
+
+```powershell
+copy .env.prod.example .env.prod
+docker compose --env-file .env.prod -f docker-compose-prod.yml up --build -d
 ```
 
 После запуска Docker Compose поднимет PostgreSQL, Kafka, Config Server, Eureka Server и все сервисы task tracker.
