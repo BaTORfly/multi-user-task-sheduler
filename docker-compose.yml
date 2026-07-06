@@ -127,6 +127,32 @@ services:
       eureka-server:
         condition: service_healthy
 
+  task-tracker-scheduler:
+    build:
+      context: ./task-tracker-scheduler
+    container_name: task-tracker-scheduler
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: http://eureka-server:8761/eureka/
+      SCHEDULER_EMAIL: ${SCHEDULER_EMAIL:-scheduler@example.com}
+      SCHEDULER_PASSWORD: ${SCHEDULER_PASSWORD:-password}
+      SCHEDULER_DAILY_CRON: "${SCHEDULER_DAILY_CRON:-0 0 0 * * *}"
+      SCHEDULER_TIME_ZONE: ${SCHEDULER_TIME_ZONE:-Europe/Moscow}
+      BACKEND_SERVICE_NAME: task-tracker-backend
+    depends_on:
+      kafka:
+        condition: service_started
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      task-tracker-backend:
+        condition: service_started
+
 volumes:
   postgres-data:
   kafka-data:

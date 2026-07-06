@@ -1,0 +1,31 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+    discovery:
+      enabled: false
+  main:
+    banner-mode: 'off'
+    log-startup-info: false
+  kafka:
+    bootstrap-servers: ${spring.embedded.kafka.brokers}
+
+server:
+  port: 0
+
+eureka:
+  client:
+    enabled: false
+
+scheduler:
+  credentials:
+    email: scheduler@example.com
+    password: password
+  reports:
+    daily-cron: "0 0 0 * * *"
+    zone: Europe/Moscow
+  kafka:
+    topic: EMAIL_SENDING_TASKS
+
+backend:
+  service-name: task-tracker-backend

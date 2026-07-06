@@ -35,7 +35,6 @@ scheduler:
   reports:
     daily-cron: ${SCHEDULER_DAILY_CRON:0 0 0 * * *}
     zone: ${SCHEDULER_TIME_ZONE:Europe/Moscow}
-    max-tasks-in-email: ${SCHEDULER_MAX_TASKS_IN_EMAIL:5}
   kafka:
     topic: ${SCHEDULER_EMAIL_TOPIC:EMAIL_SENDING_TASKS}
 
