@@ -2,6 +2,8 @@ spring:
   cloud:
     config:
       enabled: false
+    discovery:
+      enabled: false
   main:
     banner-mode: 'off'
     log-startup-info: false
@@ -25,3 +27,7 @@ spring:
 
 server:
   port: 0
+
+eureka:
+  client:
+    enabled: false
