@@ -1,0 +1,51 @@
+spring:
+  main:
+    log-startup-info: false
+    banner-mode: 'off'
+
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
+    listener:
+      ack-mode: record
+    consumer:
+      group-id: kafka-core-consumer-group
+      auto-offset-reset: latest
+    properties:
+      metrics:
+        num:
+          samples: 4
+
+  mail:
+    host: ${SPRING_MAIL_HOST:smtp.gmail.com}
+    port: ${SPRING_MAIL_PORT:587}
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+    username: ${SPRING_MAIL_USERNAME}
+    password: ${SPRING_MAIL_PASSWORD}
+
+server:
+  port: ${SERVER_PORT:8081}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE:http://localhost:8761/eureka/}
+    register-with-eureka: true
+    fetch-registry: true
+
+logging:
+  level:
+    root: INFO
+    org.apache.kafka: WARN
+    org.springframework.kafka: WARN
+    com.netflix.eureka: WARN
+    com.netflix.discovery: WARN
+    org.springframework.cloud.netflix.eureka: WARN

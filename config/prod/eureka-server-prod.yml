@@ -1,0 +1,29 @@
+spring:
+  main:
+    log-startup-info: false
+    banner-mode: 'off'
+
+server:
+  port: ${SERVER_PORT:8761}
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  level:
+    root: INFO
+    com.netflix.eureka: WARN
+    com.netflix.discovery: WARN
+    org.springframework.cloud.netflix.eureka: WARN
