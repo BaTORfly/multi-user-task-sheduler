@@ -8,6 +8,7 @@
 
 - [Основные функции](#-основные-функции)
 - [Архитектура](#-архитектура)
+- [Документация системного анализа](#-документация-системного-анализа)
 - [Схема базы данных](#-схема-базы-данных)
 - [Диаграммы потока запросов login и signup](#диаграммы-потока-запросов-login-и-signup)
 - [Технологический стек](#-технологический-стек)
@@ -60,6 +61,22 @@
 
 ### Container Diagram (без eureka-server и config-server)
 ![](docs/architecture/c4_container.png)
+
+## 📄 Документация системного анализа
+
+В проекте подготовлен отдельный пакет аналитической документации. Все файлы хранятся в директории [`docs`](docs) и описывают проект с точки зрения требований, сценариев, API-контрактов, интеграций, модели данных и тестовых проверок.
+
+Основные документы:
+
+- [`00_project_overview.md`](docs/00_project_overview.md) — обзор проекта, границы системы, роли и состав микросервисов.
+- [`01_business_requirements.md`](docs/01_business_requirements.md) — бизнес-требования, цели, роли и бизнес-правила.
+- [`02_functional_requirements.md`](docs/02_functional_requirements.md) — функциональные требования с привязкой к endpoint'ам и событиям.
+- [`04_use_cases.md`](docs/04_use_cases.md) — пользовательские и системные сценарии.
+- [`05_api_specification.md`](docs/05_api_specification.md) — человеко-читаемая спецификация REST API.
+- [`06_integration_contracts.md`](docs/06_integration_contracts.md) — контракты интеграций backend, scheduler, Kafka и email-sender.
+- [`07_data_model.md`](docs/07_data_model.md) — модель данных, ER-диаграмма и словарь таблиц.
+- [`09_acceptance_criteria_and_test_cases.md`](docs/09_acceptance_criteria_and_test_cases.md) — acceptance criteria и тестовые сценарии.
+- [`10_glossary.md`](docs/10_glossary.md) — глоссарий терминов проекта.
 
 ## 🗃️ Схема базы данных
 
